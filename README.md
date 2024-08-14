@@ -1,8 +1,82 @@
-# React + Vite
+## :ledger: React로 올림픽 메달 집계 CRUD를 구현해보자!
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![screencapture-localhost-5173-2024-08-13-15_06_50](https://github.com/user-attachments/assets/2e107880-1d10-4041-adea-acd89614a8a7)
 
-Currently, two official plugins are available:
+### :one: 과제 개요
+1. 제출 폼 UI 구현하기 
+  - 나라 이름과 금, 은, 동 메달 수를 입력할 수 있는 폼을 만듭니다.
+2. 메달 집계 CRUD 구현하기
+  - **Create**: 새로운 나라와 그 나라가 획득한 메달 수를 추가합니다.
+  - **Read**: 나라별 메달 집계 리스트를 보여줍니다.
+  - **Update**: 기존에 추가된 나라의 메달 수를 수정할 수 있습니다.
+  - **Delete**: 나라 정보를 삭제할 수 있습니다.
+3. 정렬
+  - 메달 집계는 금메달 수를 기준으로 내림차순 정렬되어야 합니다.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### :two: 요구사항
+#### :pushpin: 2-1) 필수구현사항
+1. 나라 이름과 메달 수를 입력하고, [추가하기] 버튼을 클릭하면 메달 집계에 새로운 나라가 추가되고, input 필드는 다시 빈 값으로 바뀌도록 구성해주세요.
+2. 업데이트 기능 구현하기
+  - 국가 이름과 메달 수를 입력하고, [업데이트] 버튼을 클릭하면 이미 추가된 국가의 메달 수를 수정합니다.
+3. 메달 리스트는 금메달 수를 기준으로 내림차순 정렬하여 화면에 표시됩니다.
+4. Layout의 최대 넓이는 1200px, 최소 넓이는 800px로 제한하고, 전체 화면의 가운데로 정렬해주세요.
+5. 컴포넌트 구조는 자유롭게 구현해보세요.
+  - 반복되는 컴포넌트를 찾아서, 직접 컴포넌트를 분리해보시고, 분리한 컴포넌트를 README에 작성합니다.
+
+#### :pushpin: 2-2) 도전과제
+1. 나라 이름을 입력했을 때 이미 등록된 국가라면 alert 메시지를 띄워 사용자에게 알립니다.
+2. 입력된 국가가 등록되지 않은 경우 alert 메시지를 띄워 사용자에게 알립니다.
+3. 금메달로만 순위를 결정하면 너무 섭섭하죠? 메달 총 개수도 함께 보여주도록 하고 금메달이 아닌, 획득한 메달 총 개수로 정렬을 할 수 있게 해봅시다.
+4. 매번 어플리케이션을 새로고침 할 때마다 데이터가 다 날아가서 속상하죠? 로컬스토리지에 입력한 정보를 항상 업데이트 되게끔하고 메달 정보에 관한 useState 의 초기값을 항상 로컬스토리지에서 가져오도록 해보세요.
+
+### :three: 사용 기술
+- react.js, vite, jsx, yarn
+
+### :four: 폴더 구조
+📦src<br/>
+ ┣ 📂assets<br/>
+ ┃ ┣ 📂olympic<br/>
+ ┃ ┃ ┣ 📜createList.js<br/>
+ ┃ ┃ ┗ 📜eslint.config.js<br/>
+ ┃ ┗ 📜react.svg<br/>
+ ┣ 📂components<br/>
+ ┃ ┣ 📜Button.jsx<br/>
+ ┃ ┣ 📜Input.jsx<br/>
+ ┃ ┗ 📜Table.jsx<br/>
+ ┣ 📂pages<br/>
+ ┃ ┗ 📜Olympic.jsx<br/>
+ ┣ 📜App.css<br/>
+ ┣ 📜App.jsx<br/>
+ ┣ 📜index.css<br/>
+ ┗ 📜main.jsx<br/>
+<br/>
+
+### :five: 기능 설명
+1. 페이지와 컴포넌트를 분리해주었습니다.
+  - components
+    - Button.jsx
+    - Input.jsx
+    - Table.jsx
+  - pages
+    - Olympic.jsx
+
+2. 각 컴포넌트의 역할
+  - `Buttons.jsx`
+    - 공통으로 사용되는 Button으로 사용자 인터페이스에서 버튼을 랜더링합니다. props를 통해 속성을 설정할 수 있습니다.
+  - `Input.jsx`
+    - 공통으로 사용되는 input과 label로 구성되어 사용자 인터페이스에서 랜더링합니다. props를 통해 속성을 설정할 수 있습니다.
+  - `Table.jsx` 
+    - props으로 전달받은 items를 정렬하여 테이블 형식으로 랜더링합니다.
+    - 데이터가 없을 경우 "등록된 메달이 없습니다" 문구 노출 
+    - 이 페이지도 Button,Input 컴포넌트와 같이 공통으로 사용할 수 있게 수정중입니다.
+  - `Olympic.jsx`
+    - 전체 페이지의 레이아웃을 구성하고 국가 정보 입력 및 관리하며 테이블에서 국가 목록을 랜더링합니다.
+      - ***입력값 상태 관리***: 국가명과 메달 수를 상태로 관리합니다.
+      - ***국가 추가***: 새로운 국가를 추가합니다.
+      - ***국가 업데이트***: 기존 국가의 메달 수를 업데이트 합니다.
+      - ***국가 삭제***: 국가를 목록에서 삭제합니다.
+      - ***국가 초기화***: 입력 필드를 초기화합니다.
+
+
+### :six: 실행 방법
+- `git clone` 후 터미널에서 `yarn dev`을 입력하면 됩니다.
