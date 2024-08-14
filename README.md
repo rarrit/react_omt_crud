@@ -1,5 +1,7 @@
 ## :ledger: React로 올림픽 메달 집계 CRUD를 구현해보자!
 
+- [적용 화면](https://rarrit.github.io/react_omt_crud/)
+
 ![screencapture-localhost-5173-2024-08-13-15_06_50](https://github.com/user-attachments/assets/2e107880-1d10-4041-adea-acd89614a8a7)
 
 ### :one: 과제 개요
